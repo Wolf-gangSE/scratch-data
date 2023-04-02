@@ -25,7 +25,7 @@ def test_proxy(proxy):
     
 # Testa os proxies
 working_proxies = []
-for proxy in proxy_list[:20]:
+for proxy in proxy_list[:100]:
     if test_proxy(proxy):
         working_proxies.append(proxy)
 

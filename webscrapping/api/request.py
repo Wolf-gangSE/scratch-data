@@ -1,5 +1,6 @@
 '''Scratch API request example with proxies and ThreadPoolExecutor'''
 
+from random import randint
 import time
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed, wait
@@ -47,7 +48,6 @@ def get_projects(offset, proxy):
 for i in range(83):
 
     # Número de requisições a serem feitas
-    # Ps.: O servidor do Scratch não permite mais de 2 requisições simultâneas
     num_requests_paral = 3
 
     # Cria um executor para processar as requisições paralelamente
@@ -58,7 +58,7 @@ for i in range(83):
         for i in range(num_requests_paral):
             n_requests += 1
             offset = 40*n_requests
-            proxy = proxy_list[i]
+            proxy = proxy_list[randint(0, len(proxy_list)-1)]
             args_list.append((offset, proxy))
 
         # Executa as requisições com o executor
@@ -77,28 +77,33 @@ for i in range(83):
                 results.append(result)
 
     # Espera 1 segundo para evitar bloqueio
-    time.sleep(1)
+    time.sleep(2)
 
 # Dataframe para armazenar os resultados
 df = pd.DataFrame(columns=['id'])
 
 # Exibe o número de resultados
-print("Results:" + str(len(results)))
+print("Results: " + str(len(results)))
 
 # Itera sobre os resultados
 for result in results:
     # Itera sobre os projetos
     ids = []
     df_new_row = pd.DataFrame()
+    n_projects = 0
     for project in result:
+        n_projects += 1
         # Adiciona o ID do projeto ao DataFrame
         if isinstance(project, dict):
             ids.append(project['id'])
     df_new_row['id'] = ids
     df = pd.concat([df, df_new_row], ignore_index=True)
+    print(f'N° de projetos: {n_projects}')
+    if n_projects == 1:
+        print(result)
 
 # Exibe o número de requisições que falharam
 print("Failed requests: " + str(n_requests_failed))
 
 # Salva o DataFrame em um arquivo CSV
-df.to_csv('databases/scratch.csv', index=False)
+df.to_csv('databases/scratch-test.csv', index=False)

@@ -29,7 +29,7 @@ class ProjectService():
             if response.data and len(response.data) > 0:
                 return response.data[0]
             else:
-                return ProjectService.create(id, supabase)
+                return ProjectService.create(id, supabase)[0]
             
       except Exception as e:
             print(e)
@@ -38,10 +38,10 @@ class ProjectService():
   def create(id: int, supabase: supabase.Client):
       try:
             #verifica se o projeto existe 
-            project_exist = ProjectService.fetch(id, supabase)
+            project_exist = supabase.table('scratch-projects').select("*").eq("id", id).execute()
             if project_exist:
                 return "Project already exists"
-
+            
             project = get_project_info(id)
             project_source = get_project_json(id, project['token'])
             blocks_analysis = get_blocks_analysis(project_source['targets'])

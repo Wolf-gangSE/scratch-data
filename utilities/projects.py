@@ -1,3 +1,4 @@
+import json
 import time
 import requests
 from selenium import webdriver
@@ -75,3 +76,58 @@ def get_project_json(id: int, token: str):
 def get_project_source(id: int):
     driver = webdriver.Chrome(service=Service(chromedriver_autoinstaller.install()))
     driver.get('https://scratch.mit.edu/explore/projects/' + str(id))
+    
+    
+def get_blocks_analysis(targets: list):
+    result = []
+
+    try:
+
+        def isArgCloudVar(arg):
+            if type(arg) != str:
+                return False
+
+            stage = targets[0]
+            if arg in stage['variables']:
+                return len(stage['variables'][arg]) == 3 and stage['variables'][arg][2]
+
+        for target in targets:
+            for a in target['blocks']:
+                block = target['blocks'][a]
+
+                opcode = block['opcode']
+
+                if opcode == 'data_setvariableto' or opcode == 'data_changevariableby':
+                    if isArgCloudVar(block['fields']['VARIABLE'][1]):
+                        opcode += '_cloud'
+
+                if not block['shadow']:
+                    result.append(opcode)
+
+        frequency = frequency_blocks_used(result)
+
+        return {
+            'all': frequency,
+            'by_type': frequency_block_types_used(frequency)
+        }
+    except Exception as e:
+        print(e)
+        return None
+
+def frequency_blocks_used(inputs: list):
+    frequency = {}
+
+    for term in inputs:
+        if term not in frequency:
+            frequency[term] = 0
+        frequency[term] += 1
+    return frequency
+
+def frequency_block_types_used(frequency: dict):
+    block = {}
+    for term in frequency:
+        prefix = term.split('_')[0]
+        if prefix not in block:
+            block[prefix] = 0
+        block[prefix] += 1
+    return block

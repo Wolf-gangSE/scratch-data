@@ -72,11 +72,6 @@ def get_project_json(id: int, token: str):
             return None
     else:
         return None
-
-def get_project_source(id: int):
-    driver = webdriver.Chrome(service=Service(chromedriver_autoinstaller.install()))
-    driver.get('https://scratch.mit.edu/explore/projects/' + str(id))
-    
     
 def get_blocks_analysis(targets: list):
     result = []
@@ -94,6 +89,9 @@ def get_blocks_analysis(targets: list):
         for target in targets:
             for a in target['blocks']:
                 block = target['blocks'][a]
+
+                if type(block) != dict:
+                    continue
 
                 opcode = block['opcode']
 

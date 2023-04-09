@@ -27,9 +27,9 @@ class ProjectService():
             # Verifica se o projeto já existe no banco de dados
             response = supabase.table('scratch-projects').select("*").eq("id", id).execute()
             if response.data and len(response.data) > 0:
-                return response.data[0]
+                return response.data
             else:
-                return ProjectService.create(id, supabase)[0]
+                return ProjectService.create(id, supabase)
             
       except Exception as e:
             print(e)
@@ -39,7 +39,7 @@ class ProjectService():
       try:
             #verifica se o projeto existe 
             project_exist = supabase.table('scratch-projects').select("*").eq("id", id).execute()
-            if project_exist:
+            if project_exist.data:
                 return "Project already exists"
 
             project = get_project_info(id)

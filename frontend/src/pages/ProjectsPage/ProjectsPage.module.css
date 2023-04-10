@@ -1,9 +1,0 @@
-.containerProjectsPage {
-  max-width: 1200px;
-  margin: 0 auto;
-  background-color: #8e8d8d;
-}
-
-.contentProjectsPage {
-  min-height: calc(100vh - 45.81px);
-}

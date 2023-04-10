@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
-import styles from './DataBasePage.module.css'
+import { Box, Container, Typography } from '@mui/material';
 
 const DataBasePage = () => {
   const { setTabVisualization } = useContext(GlobalContext);
@@ -10,11 +10,11 @@ const DataBasePage = () => {
   },[])
 
   return (
-    <div className={styles.containerProjectsPage}>
-      <div className={styles.contentProjectsPage}>
-        <h3>DataBasePage</h3>
-      </div>
-    </div>
+    <Container>
+      <Box sx={{minHeight: 'calc(100vh - 48.21px)'}}>
+        <Typography variant='h5' sx={{fontWeight: 'bold'}}>DataBasePage</Typography>
+      </Box>
+    </Container>
   );
 };
 

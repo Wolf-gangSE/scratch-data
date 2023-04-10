@@ -7,6 +7,7 @@ const theme = createTheme({
     colors: {
         primary: '#FCFCFC',
         secondary: '#4D97FF',
+        tertiary: '#F8AA36',
     },
   },
 });

@@ -1,6 +1,8 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container} from '@mui/material';
 import React, { useContext, useEffect } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
+import Welcome from '../../components/Welcome';
+import SearchLink from '../../components/SearchLink';
 
 const ProjectsPage = () => {
   const { setTabVisualization } = useContext(GlobalContext);
@@ -11,8 +13,9 @@ const ProjectsPage = () => {
 
   return (
     <Container>
-      <Box sx={{minHeight: 'calc(100vh - 48.21px)'}}>
-        <Typography variant='h5' sx={{fontWeight: 'bold'}}>ProjectsPage</Typography>
+      <Box sx={{minHeight: 'calc(100vh - 64.21px)', marginTop: '16px'}}>
+        <SearchLink/>
+        <Welcome/>
       </Box>
     </Container>
   );

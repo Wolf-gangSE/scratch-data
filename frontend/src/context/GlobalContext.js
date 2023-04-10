@@ -1,18 +1,21 @@
-import { createContext, useState } from "react";
+import React, { createContext, useMemo, useState } from 'react';
 
 const GlobalContext = createContext();
 
-const GlobalProvider = ({children}) => {
-  const [tabVisualization, setTabVisualization]  = useState('welcome');
-  
-  return(
-    <GlobalContext.Provider value={{
-      tabVisualization,
-      setTabVisualization
-    }}>
+function GlobalProvider({ children }) {
+  const [tabVisualization, setTabVisualization] = useState('welcome');
+
+  const contextValue = useMemo(() => ({
+    tabVisualization,
+    setTabVisualization,
+  }), [tabVisualization]);
+
+  return (
+    <GlobalContext.Provider value={contextValue}
+    >
       {children}
     </GlobalContext.Provider>
   );
 }
-  
-  export {GlobalContext, GlobalProvider};
+
+export { GlobalContext, GlobalProvider };

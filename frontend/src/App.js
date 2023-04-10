@@ -4,11 +4,10 @@ import { GlobalProvider } from './context/GlobalContext';
 import RoutesApp from './routes';
 
 function App() {
-
   return (
     <Box>
       <GlobalProvider>
-        <RoutesApp/>
+        <RoutesApp />
       </GlobalProvider>
     </Box>
   );

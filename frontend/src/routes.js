@@ -1,19 +1,19 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import ProjectsPage from "./pages/ProjectsPage";
-import DataBasePage from "./pages/DataBasePage";
-import Header from "./components/Header";
+import ProjectsPage from './pages/ProjectsPage';
+import DataBasePage from './pages/DataBasePage';
+import Header from './components/Header';
 
-const RoutesApp = () => {
+function RoutesApp() {
   return (
     <BrowserRouter>
-      <Header/>
+      <Header />
       <Routes>
-        <Route path='/' element={<ProjectsPage/>} />
-        <Route path='/DataBasePage' element={<DataBasePage/>} />
+        <Route path="/" element={<ProjectsPage />} />
+        <Route path="/DataBasePage" element={<DataBasePage />} />
       </Routes>
     </BrowserRouter>
   );
-};
+}
 
 export default RoutesApp;

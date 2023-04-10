@@ -1,10 +1,8 @@
-import {
-  Box, Button, TextField,
-} from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import theme from '../../theme';
 
-function SearchLink() {
+function SearchLink({ setDataProjects }) {
   return (
     <Box
       sx={{
@@ -30,7 +28,7 @@ function SearchLink() {
             backgroundColor: `${theme.palette.colors.secondary}`,
           },
         }}
-        onClick={() => { console.log('click'); }}
+        onClick={() => setDataProjects(true)}
       >
         Buscar
       </Button>

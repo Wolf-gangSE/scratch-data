@@ -21,6 +21,6 @@ class StudioController():
                              status=500,
                              content_type="application/json")
         
-        return Response('{"status": "success", "message": "Studio projects fetched successfully", "projects": ' + json.dumps(projects) + ', "count": ' + str(count) + '}',
+        return Response('{"status": "success", "message": "Studio projects fetched successfully",' + ' "count": ' + str(count) + ', "projects": ' + json.dumps(projects) + '}',
                         status=200,
                         content_type="application/json")

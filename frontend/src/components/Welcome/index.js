@@ -1,6 +1,7 @@
-import { Box, useTheme } from '@mui/material';
+import { Box, Button, useTheme } from '@mui/material';
 import React from 'react';
 import WelcomeImg from '../../assets/Welcome.png';
+import theme from '../../theme';
 
 function Welcome() {
   const { palette } = useTheme();
@@ -19,6 +20,7 @@ function Welcome() {
         sx={{
           backgroundColor: `${palette.colors.secondary}`,
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           padding: '10px',
@@ -35,6 +37,21 @@ function Welcome() {
           src={WelcomeImg}
           alt="Logo"
         />
+        <Button
+          variant="contained"
+          sx={{
+            backgroundColor: `${theme.palette.colors.tertiary}`,
+            marginTop: '32px',
+            fontWeight: 'bold',
+            '&:hover': {
+              backgroundColor: `${theme.palette.colors.quaternary}`,
+              color: `${theme.palette.colors.secondary}`,
+            },
+          }}
+          onClick={() => {}}
+        >
+          Baixar todos os projetos da base .csv
+        </Button>
       </Box>
     </Box>
   );

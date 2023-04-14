@@ -2,7 +2,7 @@ import { Box, Button, TextField } from '@mui/material';
 import React from 'react';
 import theme from '../../theme';
 
-function SearchLink({ setDataProjects }) {
+function SearchLink({ linkLabel, setDataProjects, handleSearch }) {
   return (
     <Box
       sx={{
@@ -17,7 +17,7 @@ function SearchLink({ setDataProjects }) {
         }}
         size="small"
         id="outlined-basic"
-        label="Link..."
+        label={linkLabel}
         variant="outlined"
       />
       <Button
@@ -28,7 +28,12 @@ function SearchLink({ setDataProjects }) {
             backgroundColor: `${theme.palette.colors.secondary}`,
           },
         }}
-        onClick={() => setDataProjects(true)}
+        onClick={() => {
+          if (setDataProjects && handleSearch) {
+            setDataProjects(true);
+            handleSearch();
+          }
+        }}
       >
         Buscar
       </Button>

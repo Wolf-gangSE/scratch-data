@@ -9,8 +9,19 @@ function Menu() {
 
   return (
     <Box component="nav" className={styles.menu}>
-      <li><Link className={tabVisualization === '/' ? styles.menuActive : undefined} to="/">Projetos</Link></li>
-      <li><Link className={tabVisualization === '/DataBasePage' ? styles.menuActive : undefined} to="/DataBasePage">Base de Dados</Link></li>
+      <li>
+        <Link className={tabVisualization === '/' ? styles.menuActive : undefined} to="/">
+          Projeto
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={tabVisualization === '/ProjectsClassProjects' ? styles.menuActive : undefined}
+          to="/ProjectsClassProjects"
+        >
+          Turma
+        </Link>
+      </li>
     </Box>
   );
 }

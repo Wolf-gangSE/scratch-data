@@ -7,6 +7,7 @@ const theme = createTheme({
       primary: '#FCFCFC',
       secondary: '#4D97FF',
       tertiary: '#F8AA36',
+      quaternary: '#F1F1F1',
     },
   },
   components: {

@@ -5,11 +5,17 @@ import Welcome from '../../components/Welcome';
 import SearchLink from '../../components/SearchLink';
 import ProjectView from '../../components/ProjectView';
 import Loading from '../../components/Loading';
+import useApi from '../../services/useApi';
 
 function ProjectsPage() {
   const { setTabVisualization } = useContext(GlobalContext);
   const [dataProjects, setDataProjects] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const { getProject } = useApi();
+
+  useEffect(()=>{
+    getProject(10128067);
+  }, [])
 
   const handleSearch = () => {
     setLoading(true);

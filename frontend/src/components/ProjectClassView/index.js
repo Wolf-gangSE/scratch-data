@@ -4,6 +4,7 @@ import DataClassProject from '../DataClassProject';
 import ListProjects from '../ListProjects';
 
 function ProjectClassView() {
+
   return (
     <Box
       sx={{

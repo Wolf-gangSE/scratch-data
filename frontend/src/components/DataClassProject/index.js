@@ -39,6 +39,7 @@ function DataClassProject() {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          flexWrap: 'wrap',
         }}
       >
         <Typography variant="body2">criação: 00/00/0000</Typography>

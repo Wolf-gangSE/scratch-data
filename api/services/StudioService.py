@@ -1,12 +1,12 @@
 import supabase
 from api.services.ProjectService import ProjectService
-from utilities.studio import get_studio_projects_id, count_studio_projects
+from utilities.studio import get_studio_projects_id, get_studio_info
 import requests
 
 class StudioService():
-    def count_studio_projects(self, studio_id: int):
-        count = count_studio_projects(studio_id)
-        return count
+    def get_studio_info(self, studio_id: int):
+        studio = get_studio_info(studio_id)
+        return studio
     
     def get_studio_projects(self, supabase: supabase.Client, studio_id: int, offset: int):
         projects_id = get_studio_projects_id(studio_id, offset)

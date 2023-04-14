@@ -1,9 +1,4 @@
-import json
-import time
 import requests
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-import chromedriver_autoinstaller
 
 def get_project_info(id: int):
     url = 'https://api.scratch.mit.edu/projects/' + str(id)

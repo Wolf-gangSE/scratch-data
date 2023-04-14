@@ -14,6 +14,10 @@ class ProjectService():
     if not projects:
         return None
     
+    # remove o campo token
+    for project in projects:
+        del project['token']
+        
     # cria um dataframe do Pandas com os dados
     df = pd.DataFrame(projects)
 
@@ -27,9 +31,14 @@ class ProjectService():
             # Verifica se o projeto já existe no banco de dados
             response = supabase.table('scratch-projects').select("*").eq("id", id).execute()
             if response.data and len(response.data) > 0:
+                # remove o campo token
+                del response.data[0]['token']
                 return response.data
             else:
-                return ProjectService.create(id, supabase)
+                project = ProjectService.create(id, supabase)
+                # remove o campo token
+                del project[0]['token']
+                return project
             
       except Exception as e:
             print(e)

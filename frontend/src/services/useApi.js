@@ -30,11 +30,23 @@ const useApi = () => {
       });
   };
 
-  const getStudio = (id) => {
+  const getStudio = (id, offset) => {
+    if (offset) {
+      api
+        .get(`/studios/${id}?offset=${offset}`)
+        .then((response) => {
+          setStudio(response?.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Turma não encontrada');
+        });
+      return;
+    }
     api
       .get(`/studios/${id}`)
       .then((response) => {
-        setStudio(response);
+        setStudio(response?.data);
       })
       .catch((error) => {
         console.error(error);

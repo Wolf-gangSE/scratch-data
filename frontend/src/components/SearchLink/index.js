@@ -4,23 +4,26 @@ import { GlobalContext } from '../../context/GlobalContext';
 import useApi from '../../services/useApi';
 import theme from '../../theme';
 
-function SearchLink({ linkLabel, handleSearchLoading }) {
+function SearchLink({ linkLabel, setLoading }) {
   const [link, setLink] = useState('');
-  const { tabVisualization } = useContext(GlobalContext);
+  const { tabVisualization, setStudio, setProject } = useContext(GlobalContext);
   const { getProject, getStudio } = useApi();
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if(link === '') {
-      alert('Preencha o campo de busca!')
+      alert('Preencha o campo de busca!');
       return;
     };
-    handleSearchLoading();
+    setStudio([]);
+    setProject([]);
+    setLink('');
+    setLoading(true);
     if(tabVisualization === '/ProjectsClassProjects') {
       const id = link.match(/(?<=studios\/)\d+/)?.[0];
-      getStudio(id);
+      await getStudio(id);
     } else {
       const id = link.match(/(?<=projects\/)\d+/)?.[0];
-      getProject(id);
+      await getProject(id);
     }
   };
 

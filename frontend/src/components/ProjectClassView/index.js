@@ -1,24 +1,36 @@
 import { Box } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
 import DataClassProject from '../DataClassProject';
 import ListProjects from '../ListProjects';
 import Welcome from '../Welcome';
 
 function ProjectClassView() {
-  const { studio } = useContext(GlobalContext);
+  const { studio, setStudio } = useContext(GlobalContext);
+  const [isLoadingProject, setIsLoadingProject] = useState(false);
+
+  useEffect(() => {
+    if (studio.length === 0) return;
+    setIsLoadingProject(true);
+  }, [studio]);
+
+  const handleCloseStudio = () => {
+    setIsLoadingProject(false);
+    setStudio([]);
+  };
 
   return (
     <Box
       sx={{
         display: 'flex',
         gap: '1rem',
+        marginBottom: '32px',
       }}
     >
-      {studio.length > 0 ? (
+      {isLoadingProject ? (
         <>
-          <DataClassProject studio={studio[0]} />
-          <ListProjects studio={studio[0]} />
+          <DataClassProject handleCloseStudio={handleCloseStudio} studio={studio.studio} />
+          <ListProjects studioProjects={studio.projects} studio={studio.studio} />
         </>
       ) : (
         <Welcome />

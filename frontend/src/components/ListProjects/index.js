@@ -1,50 +1,16 @@
 import { Box, Pagination } from '@mui/material';
 import React, { useState } from 'react';
+import useApi from '../../services/useApi';
 import ClassProject from '../ClassProject';
 
-const data = [
-  {
-    id: 1,
-    title: 'Projeto 1',
-    img: 'Descrição do projeto 1',
-    author: 'Fulano 1',
-    view: 1,
-    likes: 1,
-    stars: 1,
-  },
-  {
-    id: 2,
-    title: 'Projeto 2',
-    img: 'Descrição do projeto 2',
-    author: 'Fulano 2',
-    view: 2,
-    likes: 2,
-    stars: 2,
-  },
-  {
-    id: 3,
-    title: 'Projeto 3',
-    img: 'Descrição do projeto 3',
-    author: 'Fulano 3',
-    view: 3,
-    likes: 3,
-    stars: 3,
-  },
-  {
-    id: 4,
-    title: 'Projeto 4',
-    img: 'Descrição do projeto 4',
-    author: 'Fulano 4',
-    view: 4,
-    likes: 4,
-    stars: 4,
-  },
-];
-
-function ListProjects() {
+function ListProjects({ studioProjects, studio }) {
+  const { getStudio } = useApi();
   const [page, setPage] = useState(1);
+
   const handleChange = (event, value) => {
     setPage(value);
+    // getStudio(studio.id, value);
+    console.log(getStudio);
   };
 
   return (
@@ -67,8 +33,8 @@ function ListProjects() {
           flexWrap: 'wrap',
         }}
       >
-        {data.map((item) => (
-          <ClassProject key={item.id} item={item} />
+        {studioProjects.map((project) => (
+          <ClassProject key={project.id} project={project} />
         ))}
       </Box>
       <Box
@@ -79,7 +45,13 @@ function ListProjects() {
           alignItems: 'center',
         }}
       >
-        <Pagination count={data.length} page={page} onChange={handleChange} />
+        {studioProjects.length > 0 && (
+          <Pagination
+            count={studio.projects_count / studioProjects.length}
+            page={page}
+            onChange={handleChange}
+          />
+        )}
       </Box>
     </Box>
   );

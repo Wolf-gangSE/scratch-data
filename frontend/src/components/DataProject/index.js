@@ -14,6 +14,7 @@ function DataProject({ handleCloseProject, project }) {
         border: '1px solid rgba(0, 0, 0, 0.25)',
         borderRadius: '10px',
         gap: '0.5rem',
+        height: '50%',
       }}
     >
       <Button

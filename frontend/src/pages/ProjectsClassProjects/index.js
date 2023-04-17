@@ -6,15 +6,15 @@ import ProjectClassView from '../../components/ProjectClassView';
 import Loading from '../../components/Loading';
 
 function ProjectsClassProjects() {
-  const { setTabVisualization } = useContext(GlobalContext);
-  const [isLoading, setIsLoading] = useState(false);
+  const { setTabVisualization,  studio } = useContext(GlobalContext);
+  const [loading, setLoading] = useState(false);
 
-  const handleSearchLoading = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  };
+  useEffect(() => {
+    if (studio !== 0) {
+      setLoading(false);
+      return;
+    };
+  }, [studio]);
 
   useEffect(() => {
     setTabVisualization('/ProjectsClassProjects');
@@ -23,8 +23,8 @@ function ProjectsClassProjects() {
   return (
     <Container>
       <Box sx={{ minHeight: 'calc(100vh - 64.21px)', marginTop: '16px' }}>
-        <SearchLink linkLabel="Link da Turma" handleSearchLoading={handleSearchLoading} />
-        {isLoading ? <Loading/> : <ProjectClassView />}
+        <SearchLink linkLabel="Link da Turma" setLoading={setLoading} />
+        {loading ? <Loading/> : <ProjectClassView />}
       </Box>
     </Container>
   );

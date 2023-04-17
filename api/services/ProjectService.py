@@ -1,6 +1,7 @@
 import supabase
 import pandas as pd
 from utilities.projects import get_project_info, get_project_json, get_blocks_analysis
+import re
 
 class ProjectService():
   def get_projects_csv(supabase: supabase.Client):
@@ -31,13 +32,42 @@ class ProjectService():
             # Verifica se o projeto já existe no banco de dados
             response = supabase.table('scratch-projects').select("*").eq("id", id).execute()
             if response.data and len(response.data) > 0:
+                project = response.data[0]
                 # remove o campo token
-                del response.data[0]['token']
-                return response.data
+                del project['token']
+
+                # Define uma expressão regular para encontrar tags
+                pattern = re.compile(r'#\w+')
+
+                # Encontra todas as tags na descrição e instruções do projeto
+                tags = pattern.findall(project['description']) + pattern.findall(project['instructions'])
+
+                # Remove as tags da descrição e instruções
+                project['description'] = pattern.sub('', project['description'])
+                project['instructions'] = pattern.sub('', project['instructions'])
+
+                # Adiciona as tags ao projeto
+                project['tags'] = tags
+
+                return project
             else:
-                project = ProjectService.create(id, supabase)
+                project = ProjectService.create(id, supabase)[0]
                 # remove o campo token
-                del project[0]['token']
+                del project['token']
+
+                # Define uma expressão regular para encontrar tags
+                pattern = re.compile(r'#\w+')
+
+                # Encontra todas as tags na descrição do projeto
+                tags = pattern.findall(project['description']) + pattern.findall(project['instructions'])
+
+                # Remove as tags da descrição e instruções
+                project['description'] = pattern.sub('', project['description'])
+                project['instructions'] = pattern.sub('', project['instructions'])
+
+                # Adiciona as tags ao projeto
+                project['tags'] = tags
+                
                 return project
             
       except Exception as e:

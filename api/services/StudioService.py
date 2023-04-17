@@ -16,5 +16,5 @@ class StudioService():
         for project_id in projects_id:
             project = ProjectService.fetch(project_id, supabase)
             if project is not None:
-                projects.append(project[0])
+                projects.append(project)
         return projects

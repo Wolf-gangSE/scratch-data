@@ -1,17 +1,23 @@
 import { Box, Pagination } from '@mui/material';
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
+// import { GlobalContext } from '../../context/GlobalContext';
 import useApi from '../../services/useApi';
 import ClassProject from '../ClassProject';
+
 
 function ListProjects({ studioProjects, studio }) {
   const { getStudio } = useApi();
   const [page, setPage] = useState(1);
 
-  const handleChange = (event, value) => {
+  const handlePaginationChange = (event, value) => {
     setPage(value);
-    // getStudio(studio.id, value);
-    console.log(getStudio);
+    const studioOffset = value * 10 - 10;
+    console.log(studioOffset)
+    getStudio(studio.id, studioOffset);
+    console.log(studio)
+    console.log(studioProjects)
   };
+
 
   return (
     <Box
@@ -47,9 +53,9 @@ function ListProjects({ studioProjects, studio }) {
       >
         {studioProjects.length > 0 && (
           <Pagination
-            count={studio.projects_count / studioProjects.length}
+            count={Math.ceil(studio.projects_count / 10)}
             page={page}
-            onChange={handleChange}
+            onChange={handlePaginationChange}
           />
         )}
       </Box>

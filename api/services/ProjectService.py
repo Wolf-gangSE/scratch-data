@@ -39,7 +39,13 @@ class ProjectService():
                 # Define uma expressão regular para encontrar tags
                 pattern = re.compile(r'#\w+')
 
-                # Encontra todas as tags na descrição e instruções do projeto
+                # verifica se a descrição e as instruções não são nulas
+                if not project['description']:
+                    project['description'] = ''
+                if not project['instructions']:
+                    project['instructions'] = ''
+                
+                # Encontra todas as tags na descrição do projeto
                 tags = pattern.findall(project['description']) + pattern.findall(project['instructions'])
 
                 # Remove as tags da descrição e instruções
@@ -57,6 +63,12 @@ class ProjectService():
 
                 # Define uma expressão regular para encontrar tags
                 pattern = re.compile(r'#\w+')
+
+                # verifica se a descrição e as instruções não são nulas
+                if not project['description']:
+                    project['description'] = ''
+                if not project['instructions']:
+                    project['instructions'] = ''
 
                 # Encontra todas as tags na descrição do projeto
                 tags = pattern.findall(project['description']) + pattern.findall(project['instructions'])

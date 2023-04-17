@@ -1,4 +1,5 @@
 import requests
+import json
 
 def get_project_info(id: int):
     url = 'https://api.scratch.mit.edu/projects/' + str(id)
@@ -58,6 +59,7 @@ def get_project_json(id: int, token: str):
     # A requisição foi bem-sucedida
     if response.status_code == 200:
         try:
+            json.loads(response.content.decode('utf-8'))
             print('Requisição bem sucedida')
             # A requisição foi bem-sucedida
             response_json = response.json()
@@ -104,6 +106,7 @@ def get_blocks_analysis(targets: list):
             'by_type': frequency_block_types_used(frequency)
         }
     except Exception as e:
+        print('Erro ao analisar blocos')
         print(e)
         return None
 

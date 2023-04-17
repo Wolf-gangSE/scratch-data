@@ -1,30 +1,20 @@
 import { Box, Container } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../../context/GlobalContext';
-import Welcome from '../../components/Welcome';
 import SearchLink from '../../components/SearchLink';
 import ProjectView from '../../components/ProjectView';
 import Loading from '../../components/Loading';
-import useApi from '../../services/useApi';
 
 function ProjectsPage() {
   const { setTabVisualization } = useContext(GlobalContext);
-  const [dataProjects, setDataProjects] = useState(false);
-  const [isLoading, setLoading] = useState(false);
-  const { getProject } = useApi();
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(()=>{
-    getProject(10128067);
-  }, [])
-
-  const handleSearch = () => {
-    setLoading(true);
+  const handleSearchLoading = () => {
+    setIsLoading(true);
     setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+      setIsLoading(false);
+    }, 800);
   };
-
-  const bodyView = () => (dataProjects ? <ProjectView /> : <Welcome />);
 
   useEffect(() => {
     setTabVisualization('/');
@@ -33,12 +23,8 @@ function ProjectsPage() {
   return (
     <Container>
       <Box sx={{ minHeight: 'calc(100vh - 64.21px)', marginTop: '16px' }}>
-        <SearchLink
-          linkLabel="Link do Projeto"
-          setDataProjects={setDataProjects}
-          handleSearch={handleSearch}
-        />
-        {isLoading ? <Loading /> : bodyView()}
+        <SearchLink linkLabel="Link do Projeto" handleSearchLoading={handleSearchLoading} />
+        {isLoading ? <Loading/> : <ProjectView />}
       </Box>
     </Container>
   );

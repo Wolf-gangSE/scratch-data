@@ -1,10 +1,12 @@
 import { Box, Button, useTheme } from '@mui/material';
 import React from 'react';
 import WelcomeImg from '../../assets/Welcome.png';
+import useApi from '../../services/useApi';
 import theme from '../../theme';
 
 function Welcome() {
   const { palette } = useTheme();
+  const { getAllProject } = useApi();
 
   return (
     <Box
@@ -14,6 +16,7 @@ function Welcome() {
         border: '1px solid rgba(0, 0, 0, 0.25)',
         borderRadius: '10px',
         height: '70vh',
+        width: '100%',
       }}
     >
       <Box
@@ -48,7 +51,7 @@ function Welcome() {
               color: `${theme.palette.colors.secondary}`,
             },
           }}
-          onClick={() => {}}
+          onClick={() => getAllProject()}
         >
           Baixar todos os projetos da base .csv
         </Button>

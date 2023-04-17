@@ -1,8 +1,29 @@
 import { Box, Button, TextField } from '@mui/material';
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
+import useApi from '../../services/useApi';
 import theme from '../../theme';
 
-function SearchLink({ linkLabel, setDataProjects, handleSearch }) {
+function SearchLink({ linkLabel, handleSearchLoading }) {
+  const [link, setLink] = useState('');
+  const { tabVisualization } = useContext(GlobalContext);
+  const { getProject, getStudio } = useApi();
+
+  const handleSearch = () => {
+    if(link === '') {
+      alert('Preencha o campo de busca!')
+      return;
+    };
+    handleSearchLoading();
+    if(tabVisualization === '/ProjectsClassProjects') {
+      const id = link.match(/(?<=studios\/)\d+/)?.[0];
+      getStudio(id);
+    } else {
+      const id = link.match(/(?<=projects\/)\d+/)?.[0];
+      getProject(id);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -19,6 +40,8 @@ function SearchLink({ linkLabel, setDataProjects, handleSearch }) {
         id="outlined-basic"
         label={linkLabel}
         variant="outlined"
+        onChange={(e) => setLink(e.target.value)}
+        value={link}
       />
       <Button
         variant="contained"
@@ -28,12 +51,7 @@ function SearchLink({ linkLabel, setDataProjects, handleSearch }) {
             backgroundColor: `${theme.palette.colors.secondary}`,
           },
         }}
-        onClick={() => {
-          if (setDataProjects && handleSearch) {
-            setDataProjects(true);
-            handleSearch();
-          }
-        }}
+        onClick={handleSearch}
       >
         Buscar
       </Button>

@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
+import { SiHiveBlockchain } from "react-icons/si";
 import React from 'react';
 
-function Block({ label, icon, value }) {
+function Block({ label, value }) {
   return (
     <Box
       sx={{
@@ -18,9 +19,21 @@ function Block({ label, icon, value }) {
           display: 'flex',
           alignItems: 'center',
           borderRadius: '10px 0 0 10px',
+          gap: '10px',
         }}
       >
-        <Box sx={{ paddingLeft: '24px' }}>{icon}</Box>
+        <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          paddingLeft: '10px',
+        }}
+        >
+          <SiHiveBlockchain 
+            size={30}
+            color="#F8AA36"
+          />
+        </Box>
         <Typography variant="h6">{label}</Typography>
       </Box>
       <Box

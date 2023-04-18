@@ -12,13 +12,13 @@ const useApi = () => {
       .get(`/projects/${id}`)
       .then((response) => {        
         setProject(response?.data);
-        setIsLoading(false)
       })
       .catch((error) => {
-        console.log("Loading set to false")
-        setIsLoading(false)
         console.error(error);
         alert('Projeto não encontrado');
+        window.location.reload()
+      }).finally(() => {
+        setIsLoading(false)
       });
   };
 
@@ -28,11 +28,11 @@ const useApi = () => {
       .get(`/projects`, { responseType: 'blob' })
       .then((response) => {
         const blob = new Blob([response.data], { type: 'text/csv' });
-        setIsLoading(false)
         saveAs(blob, 'file.csv');
       })
       .catch((error) => {
         console.error(error);
+      }).finally(() => {
         setIsLoading(false)
       });
   };
@@ -44,25 +44,27 @@ const useApi = () => {
         .get(`/studios/${id}?offset=${offset}`)
         .then((response) => {
           setStudio(response?.data);
-          setIsLoading(false)
         })
         .catch((error) => {
           console.error(error);
+          alert('Turma não encontrada');          
+          window.location.reload()
+        }).finally(() => {
           setIsLoading(false)
-          alert('Turma não encontrada');
         });
       return;
     }
     api
       .get(`/studios/${id}`)
       .then((response) => {
-        setStudio(response?.data);
-        setIsLoading(false)
+        setStudio(response?.data);        
       })
       .catch((error) => {
         console.error(error);
+        alert('Turma não encontrada');        
+        window.location.reload()
+      }).finally(() => {
         setIsLoading(false)
-        alert('Turma não encontrada');
       });
   };
 

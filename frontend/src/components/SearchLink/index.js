@@ -19,10 +19,10 @@ function SearchLink({ linkLabel }) {
     setLink('');
     if(tabVisualization === '/ProjectsClassProjects') {
       const id = link.match(/(?<=studios\/)\d+/)?.[0];
-      await getStudio(id);
+      getStudio(id);
     } else {
       const id = link.match(/(?<=projects\/)\d+/)?.[0];
-      await getProject(id);
+      getProject(id);
     }
   };
 

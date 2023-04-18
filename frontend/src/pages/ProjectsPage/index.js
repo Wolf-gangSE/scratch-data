@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import React, { useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
 import SearchLink from '../../components/SearchLink';
@@ -7,7 +7,7 @@ import ProjectView from '../../components/ProjectView';
 import Loading from '../../components/Loading';
 
 function ProjectsPage() {
-  const { setTabVisualization, setProject, isLoading} = useContext(GlobalContext);
+  const { setTabVisualization, setProject, isLoading } = useContext(GlobalContext);
   const params = useLocation();
 
   useEffect(() => {
@@ -18,10 +18,9 @@ function ProjectsPage() {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {    
     setTabVisualization('/');
   }, []);
-  
 
   return (
     <Container>

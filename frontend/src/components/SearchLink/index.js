@@ -4,9 +4,9 @@ import { GlobalContext } from '../../context/GlobalContext';
 import useApi from '../../services/useApi';
 import theme from '../../theme';
 
-function SearchLink({ linkLabel, setLoading }) {
+function SearchLink({ linkLabel }) {
   const [link, setLink] = useState('');
-  const { tabVisualization, setStudio, setProject } = useContext(GlobalContext);
+  const { tabVisualization, setStudio, setProject,} = useContext(GlobalContext);
   const { getProject, getStudio } = useApi();
 
   const handleSearch = async () => {
@@ -17,7 +17,6 @@ function SearchLink({ linkLabel, setLoading }) {
     setStudio([]);
     setProject([]);
     setLink('');
-    setLoading(true);
     if(tabVisualization === '/ProjectsClassProjects') {
       const id = link.match(/(?<=studios\/)\d+/)?.[0];
       await getStudio(id);

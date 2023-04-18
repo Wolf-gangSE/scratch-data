@@ -1,23 +1,26 @@
 import { Box, Pagination } from '@mui/material';
-import React, {  useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 // import { GlobalContext } from '../../context/GlobalContext';
 import useApi from '../../services/useApi';
 import ClassProject from '../ClassProject';
-
+import Loading from '../Loading';
 
 function ListProjects({ studioProjects, studio }) {
+  const { isLoading, setIsLoading } = useContext(GlobalContext);
   const { getStudio } = useApi();
   const [page, setPage] = useState(1);
 
   const handlePaginationChange = (event, value) => {
+    setIsLoading(true)
     setPage(value);
     const studioOffset = value * 10 - 10;
-    console.log(studioOffset)
+    console.log(studioOffset);
     getStudio(studio.id, studioOffset);
-    console.log(studio)
-    console.log(studioProjects)
+    console.log(studio);
+    console.log(studioProjects);
+    setIsLoading(false)
   };
-
 
   return (
     <Box
@@ -39,9 +42,11 @@ function ListProjects({ studioProjects, studio }) {
           flexWrap: 'wrap',
         }}
       >
-        {studioProjects.map((project) => (
-          <ClassProject key={project.id} project={project} />
-        ))}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          studioProjects.map((project) => <ClassProject key={project.id} project={project} />)
+        )}
       </Box>
       <Box
         sx={{

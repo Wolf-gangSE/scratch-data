@@ -4,6 +4,7 @@ const GlobalContext = createContext();
 
 function GlobalProvider({ children }) {
   const [tabVisualization, setTabVisualization] = useState('/');
+  const [isLoading, setIsLoading] = useState(false)
   const [project, setProject] = useState([]);
   const [studio, setStudio] = useState([]);
 
@@ -14,7 +15,9 @@ function GlobalProvider({ children }) {
       project,
       setProject,
       studio,
-      setStudio
+      setStudio,
+      isLoading, 
+      setIsLoading
     }),
     [tabVisualization, project, studio]
   );

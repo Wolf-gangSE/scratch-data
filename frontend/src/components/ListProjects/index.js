@@ -1,25 +1,19 @@
 import { Box, Pagination } from '@mui/material';
-import React, { useContext, useState } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
-// import { GlobalContext } from '../../context/GlobalContext';
+import React, { useState } from 'react';
 import useApi from '../../services/useApi';
 import ClassProject from '../ClassProject';
 import Loading from '../Loading';
 
 function ListProjects({ studioProjects, studio }) {
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
+  const [isLoadingLocal, setIsLoadingLocal] = useState(false);
   const { getStudio } = useApi();
   const [page, setPage] = useState(1);
 
   const handlePaginationChange = (event, value) => {
-    setIsLoading(true)
+    setIsLoadingLocal(true);
     setPage(value);
     const studioOffset = value * 10 - 10;
-    console.log(studioOffset);
-    getStudio(studio.id, studioOffset);
-    console.log(studio);
-    console.log(studioProjects);
-    setIsLoading(false)
+    getStudio(studio.id, studioOffset).finally(() => setIsLoadingLocal(false));
   };
 
   return (
@@ -34,20 +28,22 @@ function ListProjects({ studioProjects, studio }) {
         flexDirection: 'column',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: '1rem',
-          flexWrap: 'wrap',
-        }}
-      >
-        {isLoading ? (
-          <Loading />
-        ) : (
-          studioProjects.map((project) => <ClassProject key={project.id} project={project} />)
-        )}
-      </Box>
+      {isLoadingLocal ? (
+        <Loading />
+      ) : (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          {studioProjects.map((project) => (
+            <ClassProject key={project.id} project={project} />
+          ))}
+        </Box>
+      )}
       <Box
         sx={{
           display: 'flex',

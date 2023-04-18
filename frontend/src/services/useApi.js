@@ -39,14 +39,17 @@ const useApi = () => {
 
   const getStudio = (id, offset) => {
     setIsLoading(true)
+    return new Promise((resolve, reject) => {
     if (offset) {
       api
         .get(`/studios/${id}?offset=${offset}`)
         .then((response) => {
           setStudio(response?.data);
+          resolve(response?.data)
         })
         .catch((error) => {
           console.error(error);
+          reject(error)
           alert('Turma não encontrada');          
           window.location.reload()
         }).finally(() => {
@@ -57,17 +60,21 @@ const useApi = () => {
     api
       .get(`/studios/${id}`)
       .then((response) => {
-        setStudio(response?.data);        
+        setStudio(response?.data);  
+        resolve(response?.data)      
       })
       .catch((error) => {
         console.error(error);
-        alert('Turma não encontrada');        
+        alert('Turma não encontrada');  
+        reject(error)  
         window.location.reload()
       }).finally(() => {
-        setIsLoading(false)
+        setIsLoading(false)        
       });
+    })
   };
 
+  
   return { getProject, getAllProject, getStudio};
 };
 

@@ -1,6 +1,6 @@
 
 from flask import Flask, send_from_directory
-from flask_cors import CORS #comment this on deployment
+#from flask_cors import CORS #comment this on deployment
 from api.ProjectResource import ProjectResource
 from api.StudioResource import StudioResource
 import os
@@ -13,7 +13,7 @@ key: str = os.environ.get("SUPABASE_ANON_KEY")
 supabase: Client = create_client(url, key)
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
-CORS(app) #comment this on deployment
+#CORS(app) #comment this on deployment
 api = Api(app)
 
 app.config['TIMEOUT'] = 60 

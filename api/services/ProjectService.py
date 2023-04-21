@@ -57,7 +57,7 @@ class ProjectService():
 
                 return project
             else:
-                project = ProjectService.create(id, supabase)[0]
+                project = ProjectService.create(id, supabase)
                 # remove o campo token
                 del project['token']
 
@@ -118,9 +118,23 @@ class ProjectService():
                 else:
                     project['total_blocks'] = 0
 
-            response = supabase.table('scratch-projects').insert(project).execute()
+                response = supabase.table('scratch-projects').insert(project).execute()
+            
+            else:
+                project['total_blocks'] = None
+                project['n_events'] = None
+                project['n_looks'] = None
+                project['n_sounds'] = None
+                project['n_controls'] = None
+                project['n_pens'] = None
+                project['n_procedures'] = None
+                project['n_motions'] = None
+                project['n_datas'] = None
+                project['n_operators'] = None
+                project['n_sensings'] = None
+                project['n_arguments'] = None
 
-            return response.data
+            return project
       except Exception as e:
           print(e)
           return None

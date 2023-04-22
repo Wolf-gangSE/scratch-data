@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import { SiHiveBlockchain } from "react-icons/si";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 
-function Block({ label, value }) {
+function Block({ label, value, icon }) {
   return (
     <Box
       sx={{
@@ -26,13 +26,10 @@ function Block({ label, value }) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          paddingLeft: '10px',
+          marginLeft: '10px',
         }}
         >
-          <SiHiveBlockchain 
-            size={30}
-            color="#F8AA36"
-          />
+          <FontAwesomeIcon icon={icon} />
         </Box>
         <Typography variant="h6">{label}</Typography>
       </Box>

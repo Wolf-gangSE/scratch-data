@@ -22,6 +22,9 @@ app.config['TIMEOUT'] = 60
 def serve(path):
     return send_from_directory(app.static_folder,'index.html')
 
+@app.errorhandler(404)
+def not_found(e):
+    return app.send_static_file('index.html')
 
 api.add_resource(ProjectResource, '/projects', '/projects/<int:id>', resource_class_kwargs={'supabase': supabase})
 

@@ -1,5 +1,6 @@
 import requests
 import json
+from datetime import datetime, timedelta, timezone
 
 def get_project_info(id: int):
     url = 'https://api.scratch.mit.edu/projects/' + str(id)
@@ -127,3 +128,19 @@ def frequency_block_types_used(frequency: dict):
             block[prefix] = 0
         block[prefix] += 1
     return block
+
+def verify_project_updated_at(updated_at: str):
+    try:
+        updated_at = datetime.fromisoformat(updated_at)
+        # adiciona fuso horário para agora
+        now = datetime.now(timezone.utc)
+        # verifica se a data é 7 dias ou mais antiga
+        if (now - updated_at) >= timedelta(days=7):
+            return True
+        else:
+            return False 
+    except Exception as e:
+        print('Erro ao converter data')
+        print(e)
+        return None
+    

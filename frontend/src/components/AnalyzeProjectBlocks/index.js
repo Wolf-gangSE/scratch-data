@@ -1,18 +1,19 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import { faCogs, faVolumeUp, faArrowsAlt, faMicrochip, faCalendar, faPlus, faCode, faPaintBrush, faCube } from '@fortawesome/free-solid-svg-icons';
 import Block from '../Block';
 
 function AnalyzeProjectBlocks({project}) {
   const data = [
-    { id: 1, label: 'Controle', value: project.n_controls },
-    { id: 2, label: 'Sensores', value: project.n_sensings },
-    { id: 3, label: 'Eventos', value: project.n_events },
-    { id: 4, label: 'Operadores', value: project.n_operators },
-    { id: 5, label: 'Movimento', value: project.n_motions },
-    { id: 6, label: 'Variáveis', value: project.n_datas },
-    { id: 7, label: 'Aparência', value: project.n_looks },
-    { id: 8, label: 'Meus Blocos', value: project.n_pens },
-    { id: 9, label: 'Som', value: project.n_sounds },
+    { id: 1, label: 'Controle', value: project.n_controls, icon: faCogs },
+    { id: 2, label: 'Sensores', value: project.n_sensings, icon: faMicrochip },
+    { id: 3, label: 'Eventos', value: project.n_events, icon: faCalendar },
+    { id: 4, label: 'Operadores', value: project.n_operators, icon: faPlus },
+    { id: 5, label: 'Movimento', value: project.n_motions, icon: faArrowsAlt },
+    { id: 6, label: 'Variáveis', value: project.n_datas, icon: faCode },
+    { id: 7, label: 'Aparência', value: project.n_looks, icon: faPaintBrush },
+    { id: 8, label: 'Meus Blocos', value: project.n_pens, icon: faCube },
+    { id: 9, label: 'Som', value: project.n_sounds, icon: faVolumeUp },
   ];
   return (
     <Box
@@ -46,7 +47,7 @@ function AnalyzeProjectBlocks({project}) {
           }}
         >
           {data.map((item) => (
-            <Block key={item.id} label={item.label} value={item.value} />
+            <Block key={item.id} label={item.label} value={item.value} icon={item.icon} />
           ))}
         </Box>
       </Box>

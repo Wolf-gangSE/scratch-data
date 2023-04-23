@@ -27,5 +27,5 @@ api.add_resource(ProjectResource, '/projects', '/projects/<int:id>', resource_cl
 
 api.add_resource(StudioResource, '/studios/<int:id>', resource_class_kwargs={'supabase': supabase})
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)

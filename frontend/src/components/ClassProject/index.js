@@ -12,6 +12,10 @@ function ClassProject({ project }) {
         width: '245px',
         borderRadius: '10px',
         padding: '8px',
+        cursor: 'pointer',
+        '&&:hover': {
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.25)',
+        },
       }}
       onClick={() =>  navigate("/", { state: { project } })}
     >

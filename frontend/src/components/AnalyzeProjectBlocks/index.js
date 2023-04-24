@@ -1,9 +1,20 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import { faCogs, faVolumeUp, faArrowsAlt, faMicrochip, faCalendar, faPlus, faCode, faPaintBrush, faCube } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCogs,
+  faVolumeUp,
+  faArrowsAlt,
+  faMicrochip,
+  faCalendar,
+  faPlus,
+  faCode,
+  faPaintBrush,
+  faCube,
+} from '@fortawesome/free-solid-svg-icons';
 import Block from '../Block';
+import gato from '../../assets/animeScratch.png';
 
-function AnalyzeProjectBlocks({project}) {
+function AnalyzeProjectBlocks({ project }) {
   const data = [
     { id: 1, label: 'Controle', value: project.n_controls, icon: faCogs },
     { id: 2, label: 'Sensores', value: project.n_sensings, icon: faMicrochip },
@@ -26,31 +37,61 @@ function AnalyzeProjectBlocks({project}) {
         padding: '8px',
       }}
     >
-      <Box
-        sx={{
-          backgroundColor: '#4D97FF',
-          display: 'flex',
-          width: '100%',
-          borderRadius: '10px',
-          padding: '8px',
-          flexDirection: 'column',
-        }}
-      >
-        <Typography variant="h5" color="white" sx={{ marginBottom: '8px' }}>
-          Quantidade de blocos existentes no projeto [ {project.total_blocks && project.total_blocks} ] 
-        </Typography>
+      {project.total_blocks ? (
         <Box
           sx={{
+            backgroundColor: '#4D97FF',
             display: 'flex',
-            gap: '1rem',
-            flexWrap: 'wrap',
+            width: '100%',
+            borderRadius: '10px',
+            padding: '8px',
+            flexDirection: 'column',
           }}
         >
-          {data.map((item) => (
-            <Block key={item.id} label={item.label} value={item.value} icon={item.icon} />
-          ))}
+          <Typography variant="h5" color="white" sx={{ marginBottom: '8px' }}>
+            Quantidade de blocos existentes no projeto [{' '}
+            {project.total_blocks && project.total_blocks} ]
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '1rem',
+              flexWrap: 'wrap',
+            }}
+          >
+            {data.map((item) => (
+              <Block key={item.id} label={item.label} value={item.value} icon={item.icon} />
+            ))}
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Box
+          sx={{
+            backgroundColor: '#4D97FF',
+            display: 'flex',
+            width: '100%',
+            borderRadius: '10px',
+            padding: '8px',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Box component="img" width="200px" src={gato} alt="gato" />
+          <Typography
+            variant="h5"
+            color="white"
+            sx={{
+              marginBottom: '8px',
+              color: 'white',
+              fontWeight: 'bold',
+              textAlign: 'center',
+            }}
+          >
+            Desculpe, nosso sistema só consegue analisar projetos a partir da versão 3.0 do Scratch.
+          </Typography>
+        </Box>
+      )}
     </Box>
   );
 }
